@@ -2,7 +2,7 @@
 A minimal button implementation, supporting idle and pressed and not much else.
 
 # Installation
-You can use Defold States in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/). Open your game.project file and in the dependencies field under project add:
+You can use Defold Buttons in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/). Open your game.project file and in the dependencies field under project add:
 
     https://github.com/totebo/defold-buttons/archive/master.zip
 
