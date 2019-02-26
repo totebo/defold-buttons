@@ -27,14 +27,20 @@ function M.is_enabled(self, node)
 end
 
 
-function M.add( self,gui,node_id,flipbook_idle,flipbook_pressed,cb )
+function M.add( self,node_id,flipbook_idle,flipbook_pressed,cb )
 
 	self.buttons[node_id] = { flipbook_idle=flipbook_idle, flipbook_pressed=flipbook_pressed, cb=cb }
 
 end
 
 function M.remove( self,node_id )
+
+	-- Reset button in case the state was pressed when it was removed
+	local node = gui.get_node(node_id .. button_id)
+	gui.play_flipbook( node, self.buttons[node_id].flipbook_idle )
+
 	self.buttons[node_id] = nil
+
 end
 
 function M.on_input( self, action_id, action )
@@ -64,9 +70,7 @@ function M.on_input( self, action_id, action )
 				button_data.pressed_outside = true
 			end
 		end
-
 		gui.play_flipbook(node, flipbook)
-
 	end
 
 end
