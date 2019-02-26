@@ -66,7 +66,6 @@ function M.on_input( self, action_id, action )
 			elseif action.pressed then
 				button_data.pressed_outside = true
 			end
-			flipbook = button_data.flipbook_idle
 		end
 		gui.play_flipbook(node, flipbook)
 	end
