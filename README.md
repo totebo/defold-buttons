@@ -16,7 +16,7 @@ Or point to the ZIP file of a [specific release](https://github.com/totebo/defol
       msg.post(".", "acquire_input_focus")
 
       -- Register a button
-      buttons:add( self,"button_id", "button_idle_playbook", "button_pressed_playbook", on_button__trigger )
+      buttons:add( "button_id", "button_idle_playbook", "button_pressed_playbook", on_button__trigger )
 
       -- Unregister a button
       buttons:remove( "button_id" )
