@@ -1,5 +1,6 @@
 local M = {}
-M.buttons = {}
+
+M.guis = {}
 
 local button_id = "/button"
 local action_id_touch = hash("touch")
@@ -27,21 +28,29 @@ function M.is_enabled(self, node)
 end
 
 
-function M.add( self,node_id,flipbook_idle,flipbook_pressed,cb )
+function M.add( self,userdata_gui,node_id,flipbook_idle,flipbook_pressed,cb )
 
-	self.buttons[node_id] = { flipbook_idle=flipbook_idle, flipbook_pressed=flipbook_pressed, cb=cb }
-
-end
-
-function M.remove( self,node_id )
-
-	self.buttons[node_id] = nil
+	local str_gui = tostring(userdata_gui)
+	if self.guis[str_gui] == nil then
+		self.guis[str_gui] = {}
+	end
+	self.guis[str_gui][node_id] = { flipbook_idle=flipbook_idle, flipbook_pressed=flipbook_pressed, cb=cb }
 
 end
 
-function M.on_input( self, action_id, action )
+function M.remove( self,userdata_gui,node_id )
 
-	local buttons = self.buttons
+	local str_gui = tostring(userdata_gui)
+	self.guis[str_gui][node_id] = nil
+
+end
+
+function M.on_input( self, userdata_gui, action_id, action )
+
+	local str_gui = tostring(userdata_gui)
+
+	local buttons = self.guis[str_gui]
+
 	for node_id,button_data in pairs(buttons) do
 		local flipbook = button_data.flipbook_idle
 		local node = gui.get_node(node_id .. button_id)
@@ -69,6 +78,7 @@ function M.on_input( self, action_id, action )
 		end
 		gui.play_flipbook(node, flipbook)
 	end
+
 
 end
 
