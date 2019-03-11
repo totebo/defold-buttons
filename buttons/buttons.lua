@@ -19,12 +19,16 @@ end
 
 function M.is_enabled(self, node)
 
+	if not gui.is_enabled(node) then
+		return false
+	end
 	local parent = gui.get_parent(node)
 	if parent then
 		return self.is_enabled(self, parent)
 	end
 
 	return gui.is_enabled(node)
+	
 end
 
 
