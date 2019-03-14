@@ -28,7 +28,7 @@ function M.is_enabled(self, node)
 	end
 
 	return gui.is_enabled(node)
-	
+
 end
 
 
@@ -60,24 +60,14 @@ function M.on_input( self, userdata_gui, action_id, action )
 		local node = gui.get_node(node_id .. button_id)
 		local hit = hit_test( self, node, action_id, action )
 		if hit then
-			if not button_data.pressed_outside then
-				flipbook = button_data.flipbook_pressed
-				if action.pressed then
-					button_data.pressed_inside = true
-				elseif action.released and button_data.pressed_inside then
-					flipbook = button_data.flipbook_idle
-					button_data.pressed_inside = false
-					button_data.cb()
-				end
-			elseif action.released then
+			flipbook = button_data.flipbook_pressed
+			if action.pressed then
+				button_data.pressed_inside = true
+			elseif action.released and button_data.pressed_inside then
 				flipbook = button_data.flipbook_idle
-				button_data.pressed_outside = false
-			end
-		else
-			if action.released then
-				button_data.pressed_outside = false
-			elseif action.pressed then
-				button_data.pressed_outside = true
+				button_data.pressed_inside = nil
+				button_data.pressed_outside = nil
+				button_data.cb()
 			end
 		end
 		gui.play_flipbook(node, flipbook)
